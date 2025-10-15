@@ -1,22 +1,9 @@
-const { program } = require('commander');
+const { options } = require('./mycli.js');
 const fs = require('fs');
 const path = require('path');
 
-program
-    .name('house-price-analyzer')
-    .description('Аналіз цін на нерухомість')
-    .version('1.0.0');
-
-program
-    .option('-i, --input [path]', 'шлях до вхідного JSON файлу')
-    .option('-o, --output [path]', 'шлях для вихідного файлу')
-    .option('-d, --display', 'вивести результат у консоль')
-    .option('-f, --furnished', 'відображати лише будинки з меблями')
-    .option('-p, --price <number>', 'відображати лише будинки з ціною меншою за зазначену');
-
-program.parse();
-
-const options = program.opts();
+//console.log(process.argv);
+//console.log(options);
 
 // Перевірка обов'язкового параметру
 if (!options.input) {
@@ -33,6 +20,7 @@ if (!fs.existsSync(options.input)) {
 try {
     // Читання файлу як JSON Lines
     const fileContent = fs.readFileSync(options.input, 'utf8');
+    //console.log(fileContent);
     const lines = fileContent.split('\n').filter(line => line.trim() !== '');
     
     // Парсинг кожного рядка як JSON об'єкта
